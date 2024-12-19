@@ -56,6 +56,27 @@ The **ImunifyAV Webmin Module** provides seamless integration of the ImunifyAV(+
 
 ---
 
+### Notifications
+
+The module includes support for notifications via **Telegram** and **Email** for the following events:
+- **User scan: started**
+- **Custom scan: started**
+- **Custom scan: malware detected**
+- **User scan: malware detected**
+
+#### Setup Instructions
+1. Edit the notification script located at:
+   ```
+   /usr/libexec/webmin/imunify360/imunifyscan.sh
+   ```
+2. Update the following variables in the script:
+   - `TELEGRAM_BOT_TOKEN` and `TELEGRAM_CHAT_ID` for Telegram notifications.
+   - `EMAIL_RECIPIENT` for Email notifications.
+
+3. Add the script to the desired event handlers to receive notifications.
+
+
+
 ## Feedback Welcomed
 This is version 1 of the module, and your feedback is invaluable! Let me know if there’s anything to improve or adjust. It’s my first Webmin module, so your input is greatly appreciated! 
 
