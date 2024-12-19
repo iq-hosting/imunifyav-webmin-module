@@ -44,7 +44,7 @@ The **ImunifyAV Webmin Module** provides seamless integration of the ImunifyAV(+
 
 ### Module Installation
 1. Download the module:  
-   [imunify360.wbm.gz](https://raw.githubusercontent.com/iq-hosting/imunifyav-webmin-module/main/imunify360.wbm.gz)
+   [imunify360.wbm.gz](https://github.com/iq-hosting/imunifyav-webmin-module/releases/download/v1.0.0/imunify360.wbm.gz)
 
 2. Open Webmin:
    - Navigate to **Webmin Configuration > Webmin Modules**.
