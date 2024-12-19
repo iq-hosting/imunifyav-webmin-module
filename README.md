@@ -74,7 +74,7 @@ The module includes support for notifications via **Telegram** and **Email** for
    - `EMAIL_RECIPIENT` for Email notifications.
 
 3. Add the script to the desired event handlers to receive notifications.
-
+![Notifications Screenshot](https://github.com/iq-hosting/imunifyav-webmin-module/blob/main/Notifications.jpg?raw=true)
 
 
 ## Feedback Welcomed
