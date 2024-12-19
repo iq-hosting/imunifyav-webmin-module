@@ -1,0 +1,5 @@
+name=Imunify366
+desc=Manage Imunify36
+category=security
+version=1.0.0
+depends=apache
