@@ -1,5 +1,5 @@
-name=Imunify366
-desc=Manage Imunify36
+name=Imunify360
+desc=Manage Imunify360
 category=security
 version=1.0.0
 depends=apache
