@@ -1,10 +1,9 @@
 # ImunifyAV Webmin Module
 
 ## Overview
-The **ImunifyAV Webmin Module** provides seamless integration of the ImunifyAV(+) standalone UI into Webmin, allowing you to manage ImunifyAV directly from Webmin with zero code edits.
+The **ImunifyAV Webmin Module** provides seamless integration of the ImunifyAV(+) standalone UI into Webmin, allowing you to manage ImunifyAV directly from Webmin.
 
 ### Key Features:
-- **Zero Code Edits**: Ready to use out of the box!
 - **UI Integration**: Secure iframe integration of the ImunifyAV(+) UI directly into Webmin.
 - **Enhanced Security**: Access restricted to the root IP for added security.
 - **Token-Based Login**: No credentials needed! The module uses ImunifyAV's token-based authentication, which refreshes on every reload.
