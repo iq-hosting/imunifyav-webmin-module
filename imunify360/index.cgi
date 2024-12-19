@@ -18,9 +18,8 @@ my $token_file = "/usr/libexec/webmin/imunify360/imunifytokens.txt";
 my $csp_enabled = 0;
 my $module_version = 'Unknown';
 
-my $info_file = '/usr/libexec/webmin/imunify360/module.info'; # Replace with the actual path
+my $info_file = '/usr/libexec/webmin/imunify360/module.info'; 
 
-# Read the version from the .info file
 if (-e $info_file) {
     open(my $info_fh, '<', $info_file) or die "Could not open info file: $!";
     while (my $line = <$info_fh>) {
@@ -33,7 +32,6 @@ if (-e $info_file) {
     close($info_fh);
 }
 
-# Validate hostname
 if ($hostname !~ /^[a-zA-Z0-9.-]+$/) {
     die "Invalid hostname.";
 }
@@ -57,13 +55,11 @@ sub log_change {
 }
 
 
-# Validate IPv4 addresses
 sub is_valid_ipv4 {
     my $ip = shift;
     return $ip =~ /^(\d{1,3}\.){3}\d{1,3}$/ && !grep { $_ > 255 } split(/\./, $ip);
 }
 
-# Validate IPv6 addresses
 sub is_valid_ipv6 {
     my $ip = shift;
 
