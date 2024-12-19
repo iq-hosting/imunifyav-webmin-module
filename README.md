@@ -78,5 +78,5 @@ The module includes support for notifications via **Telegram** and **Email** for
 
 
 ## Feedback Welcomed
-This is version 1 of the module, and your feedback is invaluable! Let me know if there’s anything to improve or adjust. It’s my first Webmin module, so your input is greatly appreciated! 
+This is version 1 of the module, and your feedback is invaluable! Let me know if there’s anything to improve or adjust. 
 
