@@ -11,17 +11,18 @@ The **ImunifyAV Webmin Module** provides seamless integration of the ImunifyAV(+
 
 ---
 
-## Installation
+## Installation ImunifyAV(+)
 
 ### Prerequisites
 1. Install the standalone version of ImunifyAV by following the official guide:  
    [ImunifyAV Standalone Documentation](https://docs.imunify360.com/imunifyav/stand_alone_mode/).
 
-2. Before installation, update the configuration file (create it if it does not exist)::
+2. **Set up the Configuration File**  
+   Before starting the installation, create or update the following configuration file:  
    ```
    /etc/sysconfig/imunify360/integration.conf
-   ```
-   Example:
+   ```  
+   Example configuration:  
    ```ini
    [paths]
    # Path where the ImunifyAV UI files will be installed and served
@@ -35,9 +36,17 @@ The **ImunifyAV Webmin Module** provides seamless integration of the ImunifyAV(+
    service_name = system-auth
    ```
 
-3. Ensure your server has a valid hostname. The module UI will be installed in the path:
+3. **Ensure a Valid Hostname**  
+   Your server must have a valid hostname pointing to the UI installation path:  
    ```
    /home/._default_hostname/public_html/imunifyav
+   ```
+
+4. **Install ImunifyAV**  
+   Run the following commands to install ImunifyAV:  
+   ```bash
+   wget https://repo.imunify360.cloudlinux.com/defence360/imav-deploy.sh -O imav-deploy.sh
+   bash imav-deploy.sh
    ```
 
 ---
