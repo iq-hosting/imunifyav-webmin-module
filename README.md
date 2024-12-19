@@ -17,7 +17,7 @@ The **ImunifyAV Webmin Module** provides seamless integration of the ImunifyAV(+
 1. Install the standalone version of ImunifyAV by following the official guide:  
    [ImunifyAV Standalone Documentation](https://docs.imunify360.com/imunifyav/stand_alone_mode/).
 
-2. Before installation, update the configuration file:
+2. Before installation, update the configuration file (create it if it does not exist)::
    ```
    /etc/sysconfig/imunify360/integration.conf
    ```
