@@ -15,10 +15,10 @@ my $htaccess_file = "/home/._default_hostname/public_html/.htaccess";
 my $config_conf = "/etc/webmin/config";
 my $log_file = "/var/log/imunify360_changes.log";
 my $token_file = "/usr/libexec/webmin/imunify360/imunifytokens.txt";
+my $info_file = '/usr/libexec/webmin/imunify360/module.info';
 my $csp_enabled = 0;
 my $module_version = 'Unknown';
-
-my $info_file = '/usr/libexec/webmin/imunify360/module.info'; 
+my $token = "";
 
 if (-e $info_file) {
     open(my $info_fh, '<', $info_file) or die "Could not open info file: $!";
@@ -42,6 +42,7 @@ sub sanitize_path {
     $path =~ s/\/+/\//g;
     return $path;
 }
+
 $config_conf = sanitize_path($config_conf);
 
 
@@ -60,6 +61,7 @@ sub is_valid_ipv4 {
     return $ip =~ /^(\d{1,3}\.){3}\d{1,3}$/ && !grep { $_ > 255 } split(/\./, $ip);
 }
 
+
 sub is_valid_ipv6 {
     my $ip = shift;
 
@@ -74,7 +76,6 @@ sub is_valid_ipv6 {
     }
 }
 
-# General IP validation
 sub is_valid_ip {
     my $ip = shift;
     return is_valid_ipv4($ip) || is_valid_ipv6($ip);
@@ -85,6 +86,15 @@ my $client_ip = encode_entities($ENV{'REMOTE_ADDR'} // '127.0.0.1');
 if (!is_valid_ip($client_ip)) {
     log_change("Invalid IP address attempt: $client_ip");
     die "Invalid IP address.";
+}
+
+if ($client_ip =~ /:/) {
+    my $packed = inet_pton(AF_INET6, $client_ip);
+    unless ($packed) {
+        log_change("Failed to normalize IPv6 address: $client_ip");
+        die "Failed to normalize IPv6 address: $client_ip.";
+    }
+    $client_ip = inet_ntop(AF_INET6, $packed);
 }
 
 sub allow_root_ip {
@@ -106,44 +116,20 @@ sub allow_root_ip {
 allow_root_ip();
 log_change("Updated .htaccess to deny all and allow " . encode_entities($client_ip));
 
-if ($client_ip =~ /:/) {
-    my $packed = inet_pton(AF_INET6, $client_ip);
-    unless ($packed) {
-        log_change("Failed to normalize IPv6 address: $client_ip");
-        die "Failed to normalize IPv6 address: $client_ip.";
-    }
-    $client_ip = inet_ntop(AF_INET6, $packed);
-}
-
-
-my $token = "";
 
 sub mask_token_last {
     my $token = shift;
     return "****" . substr($token, -25);
 }
 
-if (-e $token_file) {
-    eval {
-        open(my $fh, '<', $token_file) or die "Could not open token file: $!";
-        chomp($token = <$fh>);
-        close($fh);
-        log_change("Token successfully loaded from $token_file: " . mask_token_last($token));
-    };
-    if ($@) {
-        log_change("Error reading token file $token_file: $@");
-        die "Error reading token file: $@";
-    }
-} else {
-    eval {
-        require '/usr/libexec/webmin/imunify360/get_token.pl';
-        $token = get_token();
-        log_change("New token created and saved: " . mask_token_last($token));
-    };
-    if ($@) {
-        log_change("Error creating new token: $@");
-        die "Error creating new token: $@";
-    }
+eval {
+    require '/usr/libexec/webmin/imunify360/get_token.pl';
+    $token = get_token();
+    log_change("Token successfully loaded: " . mask_token_last($token));
+};
+if ($@) {
+    log_change("Error loading token: $@");
+    die "Error loading token: $@";
 }
 
 print $cgi->header();
@@ -202,12 +188,12 @@ print "<style>
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    margin: 0; 
+    margin: 0;
 }
     .imunify360-iframe {
-    display: block;    
-    border: none;    
-    height: 100vh; 
+    display: block;
+    border: none;
+    height: 100vh;
     width: 100%;
     }
     .imunify360-message {
@@ -254,7 +240,7 @@ print "<div class='imunify360-container'>";
 open(my $fh, '<', $config_conf) or die "Could not open $config_conf: $!";
 while (<$fh>) {
     if (/Content-Security-Policy/) {
-    log_change("CSP already present in configuration.");    
+    log_change("CSP already present in configuration.");
     $csp_enabled = 1;
         last;
     }
@@ -299,7 +285,7 @@ if ($action eq 'enable_csp') {
 }
 
 if (!$csp_enabled && $action eq '') {
-    log_change("Warning: CSP is not enabled. Configuration file: $config_conf. Please add it: extra_headers=Content-Security-Policy: frame-src 'self' https://$hostname/imunifyav/;");   
+    log_change("Warning: CSP is not enabled. Configuration file: $config_conf. Please add it: extra_headers=Content-Security-Policy: frame-src 'self' https://$hostname/imunifyav/;");
      print "<div class='imunify360-warning'>
         <p>Warning: To enhance security, please enable the Content-Security-Policy (CSP) header.</p>
         <form method='get' action='index.cgi'>
@@ -316,4 +302,3 @@ if (!$csp_enabled && $action eq '') {
 print "</div>";
 print "</body>";
 print &footer();
-
