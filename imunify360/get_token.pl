@@ -9,6 +9,7 @@ sub get_token {
     open(my $fh, '<', $token_file) or die "Could not open token file: $!";
     my $token = <$fh>;
     close($fh);
+    
     if (unlink $token_file) {
         log_change("Token file $token_file deleted successfully.");
     } else {
