@@ -73,26 +73,42 @@ The module includes support for notifications via **Telegram** and **Email** for
 - **User scan: malware detected**
 
 ### Setup Instructions
+
 1. **Edit the Notification Script**
-   Open the script located at:
+   Open the Perl script located at:
    ```
-   /usr/libexec/webmin/imunify360/imunifyscan.sh
+   /usr/libexec/webmin/imunify360/imunifyscan.pl
    ```
 
 2. **Update Configuration Variables**
-   Update the following variables in the script:
-   - `TELEGRAM_BOT_TOKEN` and `TELEGRAM_CHAT_ID` for Telegram notifications.
-   - `EMAIL_RECIPIENT` for Email notifications.
+   Inside the script, update the following settings to match your environment:
+   - **Telegram Notifications:**
+     ```perl
+     my $telegram_bot_token = "YOUR_BOT_TOKEN_HERE";
+     my $telegram_chat_id = "YOUR_CHAT_ID_HERE";
+     ```
+   - **Email Notifications:**
+     ```perl
+     my $email_recipient = 'your_email@example.com';
+     ```
+   - To disable Telegram or Email notifications, set the following variables:
+     ```perl
+     my $enable_telegram = 0; # Disable Telegram notifications
+     my $enable_email = 0;    # Disable Email notifications
+     ```
 
 3. **Dependencies**
-   Ensure that `jq` is installed for parsing JSON data. To install `jq`, run:
-   ```
-   yum install -y jq  # For CentOS/RedHat
-   apt-get install -y jq  # For Ubuntu/Debian
-   ```
+   Ensure that the following dependencies are installed:
+   - **Perl Modules:**
+     Install required modules for JSON parsing and HTTP requests:
+     ```
+     cpan JSON LWP::UserAgent
+     ```
+   - **Postfix Mail Server:**
+     Make sure Postfix or a compatible mail server is installed and configured for Email notifications.
 
 4. **Add the Script to Event Handlers**
-   Configure the following events to use the script:
+   Configure the following events to trigger the notification script:
    ```
    User scan: started
    Custom scan: started
@@ -100,8 +116,18 @@ The module includes support for notifications via **Telegram** and **Email** for
    User scan: malware detected
    ```
 
-### Example Screenshot
+   Set the handler path to:
+   ```
+   /usr/libexec/webmin/imunify360/imunifyscan.pl
+   ```
+
+---
+
+### Screenshot of Notification Settings
 ![Notifications Screenshot](https://github.com/iq-hosting/imunifyav-webmin-module/blob/main/Notifications.jpg?raw=true)
+
+---
+
 
 ## Feedback Welcomed
 This is version 1 of the module, and your feedback is invaluable! Let me know if there’s anything to improve or adjust. 
