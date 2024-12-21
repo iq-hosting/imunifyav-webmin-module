@@ -3,7 +3,7 @@ use strict;
 use warnings;
 
 sub get_token {
-    my $token_file = "imunifytokens.txt";
+    my $token_file = "imunifytokens";
     system("imunify360-agent login get --username root > $token_file");
     chmod 0600, $token_file;
     open(my $fh, '<', $token_file) or die "Could not open token file: $!";
