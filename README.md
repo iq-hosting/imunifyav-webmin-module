@@ -121,8 +121,6 @@ The module includes support for notifications via **Telegram** and **Email** for
    /usr/libexec/webmin/imunify360/imunifyscan.pl
    ```
 
----
-
 ### Screenshot of Notification Settings
 ![Notifications Screenshot](https://github.com/iq-hosting/imunifyav-webmin-module/blob/main/Notifications.jpg?raw=true)
 
