@@ -14,7 +14,6 @@ my $hostname = encode_entities(hostname());
 my $htaccess_file = "/home/._default_hostname/public_html/.htaccess";
 my $config_conf = "/etc/webmin/config";
 my $log_file = "/var/log/imunify360_changes.log";
-my $token_file = "/usr/libexec/webmin/imunify360/imunifytokens.txt";
 my $info_file = '/usr/libexec/webmin/imunify360/module.info';
 my $csp_enabled = 0;
 my $module_version = 'Unknown';
