@@ -11,7 +11,7 @@ use HTML::Entities;
 &init_config();
 my $cgi = CGI->new();
 my $hostname = encode_entities(hostname());
-my $htaccess_file = "/home/._default_hostname/public_html/.htaccess";
+my $htaccess_file = "/home/._hostname/public_html/.htaccess";
 my $config_conf = "/etc/webmin/config";
 my $log_file = "/var/log/imunify360_changes.log";
 my $info_file = '/usr/libexec/webmin/imunify360/module.info';
@@ -31,8 +31,8 @@ if (-e $info_file) {
     close($info_fh);
 }
 
-if ($hostname !~ /^[a-zA-Z0-9.-]+$/) {
-    die "Invalid hostname.";
+if ($ !~ /^[a-zA-Z0-9.-]+$/) {
+    die "Invalid .";
 }
 
 sub sanitize_path {
@@ -260,7 +260,7 @@ if ($action eq 'enable_csp') {
     unless ($csp_enabled) {
         eval {
             open(my $fh, '>>', $config_conf) or die "Could not open $config_conf: $!";
-            print $fh "extra_headers=Content-Security-Policy: frame-src 'self' https://$hostname/imunifyav/;\n";
+            print $fh "extra_headers=Content-Security-Policy: frame-src 'self' https://$/imunifyav/;\n";
             close($fh);
         };
         if ($@) {
@@ -271,7 +271,7 @@ if ($action eq 'enable_csp') {
             exit;
         }
 
-        log_change("CSP successfully enabled in $config_conf. Hostname: $hostname, IP: $client_ip");
+        log_change("CSP successfully enabled in $config_conf. : $, IP: $client_ip");
         $csp_enabled = 1;
     }
 
@@ -284,7 +284,7 @@ if ($action eq 'enable_csp') {
 }
 
 if (!$csp_enabled && $action eq '') {
-    log_change("Warning: CSP is not enabled. Configuration file: $config_conf. Please add it: extra_headers=Content-Security-Policy: frame-src 'self' https://$hostname/imunifyav/;");
+    log_change("Warning: CSP is not enabled. Configuration file: $config_conf. Please add it: extra_headers=Content-Security-Policy: frame-src 'self' https://$/imunifyav/;");
      print "<div class='imunify360-warning'>
         <p>Warning: To enhance security, please enable the Content-Security-Policy (CSP) header.</p>
         <form method='get' action='index.cgi'>
@@ -294,7 +294,7 @@ if (!$csp_enabled && $action eq '') {
     </div>";
 } else {
 
-    print "<iframe src='https://$hostname/imunifyav/#/login?token=$token' class='imunify360-iframe'></iframe>";
+    print "<iframe src='https://$/imunifyav/#/login?token=$token' class='imunify360-iframe'></iframe>";
 
 }
 
