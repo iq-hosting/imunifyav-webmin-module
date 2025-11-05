@@ -25,10 +25,10 @@ The **ImunifyAV Webmin Module** provides seamless integration of the ImunifyAV(+
    ```ini
    [paths]
    # Path where the ImunifyAV UI files will be installed and served
-   ui_path = /home/._default_hostname/public_html/imunifyav
+   ui_path = /home/._hostname/public_html/imunifyav
 
    # Ownership for UI files
-   ui_path_owner = _default_hostname:_default_hostname
+   ui_path_owner = _hostname:_hostname
 
    [pam]
    # PAM service for user authentication
@@ -38,7 +38,7 @@ The **ImunifyAV Webmin Module** provides seamless integration of the ImunifyAV(+
 3. **Ensure a Valid Hostname**  
    Your server must have a valid hostname pointing to the UI installation path:  
    ```
-   /home/._default_hostname/public_html/imunifyav
+   /home/._hostname/public_html/imunifyav
    ```
 
 4. **Install ImunifyAV**  
