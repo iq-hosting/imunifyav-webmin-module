@@ -13,14 +13,18 @@ The **ImunifyAV Webmin Module** provides seamless integration of the ImunifyAV(+
 ## Installation ImunifyAV(+)
 
 ### Prerequisites
-1. Install the standalone version of ImunifyAV by following the official guide:  
-   [ImunifyAV Standalone Documentation](https://docs.imunify360.com/imunifyav/stand_alone_mode/).
+1. **Review the Standalone Installation Guide**  
+   Before installing, read the official ImunifyAV Standalone documentation carefully to understand the installation process and requirements — **do not run the installation yet**.  
+   [ImunifyAV Standalone Documentation](https://docs.imunify360.com/imunifyav/stand_alone_mode/)
+
+   > ⚠️ **Important:** You must configure the `integration.conf` file *before* installing ImunifyAV.  
+   Skipping this step will cause integration errors and prevent the Webmin module from functioning correctly.
 
 2. **Set up the Configuration File**  
-   Before starting the installation, create or update the following configuration file:  
+   Create or update the following configuration file:  
    ```
    /etc/sysconfig/imunify360/integration.conf
-   ```  
+   ```
    Example configuration:  
    ```ini
    [paths]
@@ -36,13 +40,13 @@ The **ImunifyAV Webmin Module** provides seamless integration of the ImunifyAV(+
    ```
 
 3. **Ensure a Valid Hostname**  
-   Your server must have a valid hostname pointing to the UI installation path:  
+   Make sure your server has a valid hostname pointing to the UI installation path:  
    ```
    /home/._hostname/public_html/imunifyav
    ```
 
 4. **Install ImunifyAV**  
-   Run the following commands to install ImunifyAV:  
+   Once the configuration is complete, proceed with the installation:  
    ```bash
    wget https://repo.imunify360.cloudlinux.com/defence360/imav-deploy.sh -O imav-deploy.sh
    bash imav-deploy.sh
@@ -74,13 +78,13 @@ The module includes support for notifications via **Telegram** and **Email** for
 
 ### Setup Instructions
 
-1. **Edit the Notification Script**
-   Open the Perl script located at:
+1. **Edit the Notification Script**  
+   Open the Perl script located at:  
    ```
    /usr/libexec/webmin/imunify360/imunifyscan.pl
    ```
 
-2. **Update Configuration Variables**
+2. **Update Configuration Variables**  
    Inside the script, update the following settings to match your environment:
    - **Telegram Notifications:**
      ```perl
@@ -97,17 +101,17 @@ The module includes support for notifications via **Telegram** and **Email** for
      my $enable_email = 0;    # Disable Email notifications
      ```
 
-3. **Dependencies**
+3. **Dependencies**  
    Ensure that the following dependencies are installed:
-   - **Perl Modules:**
-     Install required modules for JSON parsing and HTTP requests:
+   - **Perl Modules:**  
+     Install required modules for JSON parsing and HTTP requests:  
      ```
      cpan JSON LWP::UserAgent
      ```
-   - **Postfix Mail Server:**
+   - **Postfix Mail Server:**  
      Make sure Postfix or a compatible mail server is installed and configured for Email notifications.
 
-4. **Add the Script to Event Handlers**
+4. **Add the Script to Event Handlers**  
    Configure the following events to trigger the notification script:
    ```
    User scan: started
@@ -115,7 +119,6 @@ The module includes support for notifications via **Telegram** and **Email** for
    Custom scan: malware detected
    User scan: malware detected
    ```
-
    Set the handler path to:
    ```
    /usr/libexec/webmin/imunify360/imunifyscan.pl
@@ -126,7 +129,11 @@ The module includes support for notifications via **Telegram** and **Email** for
 
 ---
 
-
 ## Feedback Welcomed
-This is version 1 of the module, and your feedback is invaluable! Let me know if there’s anything to improve or adjust. 
+This is version 1 of the module, and your feedback is invaluable!  
+Feel free to open issues or pull requests to help improve functionality and documentation.
 
+---
+
+## Disclaimer
+This module is a **community-developed integration** by **IQ Hosting** and is **not an official product** of **CloudLinux / Imunify360**.
