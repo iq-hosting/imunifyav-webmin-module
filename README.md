@@ -227,10 +227,6 @@ Contributions are welcome! Please feel free to submit issues and pull requests.
 
 This module is a **community-developed integration** by **IQ Hosting** and is **not an official product** of CloudLinux / Imunify360.
 
-## License
-
-MIT License - See [LICENSE](LICENSE) file for details.
-
 ## Author
 
 **IQ Hosting** - [https://iq-hosting.com](https://iq-hosting.com)
