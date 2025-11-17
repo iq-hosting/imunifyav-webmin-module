@@ -1,0 +1,57 @@
+index_title=مدير ImunifyAV
+index_dashboard=لوحة التحكم
+index_csp_warning=تحذير: سياسة أمان المحتوى (CSP) غير مفعلة. يُنصح بتفعيلها للأمان.
+index_csp_enable=تفعيل CSP
+index_csp_success=تم تفعيل سياسة أمان المحتوى بنجاح!
+index_csp_reload=جاري إعادة تحميل الصفحة لتطبيق التغييرات...
+index_click_here=اضغط هنا إذا لم يتم إعادة التحميل تلقائياً.
+index_token_error=فشل في استرداد رمز المصادقة من ImunifyAV.
+index_htaccess_error=فشل في تحديث ملف .htaccess لتقييد IP.
+index_ui_path_error=تعذر قراءة ui_path من integration.conf. يرجى إعداد ImunifyAV أولاً.
+index_invalid_ip=تم اكتشاف عنوان IP غير صالح.
+index_invalid_hostname=تم اكتشاف اسم مضيف غير صالح.
+index_ipv6_error=فشل في تطبيع عنوان IPv6.
+
+settings_title=إعدادات الإشعارات
+settings_telegram=إشعارات تيليجرام
+settings_email=إشعارات البريد الإلكتروني
+settings_enable=تفعيل
+settings_bot_token=رمز البوت
+settings_chat_id=معرف المحادثة
+settings_recipient=البريد الإلكتروني المستلم
+settings_save=حفظ الإعدادات
+settings_saved=تم حفظ الإعدادات بنجاح!
+settings_invalid_email=صيغة البريد الإلكتروني غير صالحة.
+settings_invalid_token=صيغة رمز بوت تيليجرام غير صالحة.
+settings_invalid_chatid=صيغة معرف محادثة تيليجرام غير صالحة.
+
+settings_hooks=ربط أحداث ImunifyAV
+settings_hooks_status=حالة الإشعارات
+settings_hooks_active=مفعّلة
+settings_hooks_inactive=معطّلة
+settings_hooks_action=الإجراء
+settings_hooks_install=تفعيل الإشعارات
+settings_hooks_remove=تعطيل الإشعارات
+settings_hooks_installed=تم تفعيل الإشعارات بنجاح! تم إعادة تشغيل الخدمة.
+settings_hooks_removed=تم تعطيل الإشعارات. تم إعادة تشغيل الخدمة.
+settings_hooks_install_failed=فشل في تفعيل الإشعارات. تحقق من الصلاحيات.
+settings_hooks_remove_failed=فشل في تعطيل الإشعارات.
+settings_hooks_restart=يجب إعادة تشغيل الخدمة (فشلت إعادة التشغيل التلقائية).
+settings_hooks_restart_failed=تم تفعيل الإشعارات لكن فشلت إعادة التشغيل التلقائية. يرجى إعادة التشغيل يدوياً: systemctl restart imunify-antivirus
+settings_hooks_confirm_remove=هل أنت متأكد من تعطيل الإشعارات؟
+settings_hooks_info=معلومات
+settings_hooks_desc=تتيح إشعارات الأحداث لـ ImunifyAV إرسال تنبيهات عبر تيليجرام والبريد عند بدء الفحص أو اكتشاف برامج ضارة.
+
+acl_full=وصول كامل لموديول ImunifyAV
+acl_denied=ليس لديك صلاحية للوصول إلى هذا الموديول.
+
+error_title=خطأ ImunifyAV
+error_csrf=مصدر الطلب غير صالح. يرجى المحاولة مرة أخرى.
+error_invalid_action=معامل الإجراء غير صالح.
+
+log_enable_csp=تم تفعيل سياسة أمان المحتوى
+log_save_settings=تم حفظ إعدادات الإشعارات
+log_update_htaccess=تم تحديث تقييد IP
+
+help_intro=مساعدة موديول ImunifyAV
+help_intro_desc=يوفر هذا الموديول التكامل مع ImunifyAV(+) لفحص البرامج الضارة وإدارة الأمان.

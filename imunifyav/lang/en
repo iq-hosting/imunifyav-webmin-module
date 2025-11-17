@@ -1,0 +1,57 @@
+index_title=ImunifyAV Manager
+index_dashboard=Dashboard
+index_csp_warning=Warning: Content-Security-Policy (CSP) is not enabled. This is recommended for security.
+index_csp_enable=Enable CSP
+index_csp_success=Content-Security-Policy enabled successfully!
+index_csp_reload=Reloading page to apply changes...
+index_click_here=Click here if the page does not reload automatically.
+index_token_error=Failed to retrieve authentication token from ImunifyAV agent.
+index_htaccess_error=Failed to update .htaccess file for IP restriction.
+index_ui_path_error=Could not read ui_path from integration.conf. Please configure ImunifyAV first.
+index_invalid_ip=Invalid client IP address detected.
+index_invalid_hostname=Invalid server hostname detected.
+index_ipv6_error=Failed to normalize IPv6 address.
+
+settings_title=Notification Settings
+settings_telegram=Telegram Notifications
+settings_email=Email Notifications
+settings_enable=Enable
+settings_bot_token=Bot Token
+settings_chat_id=Chat ID
+settings_recipient=Email Recipient
+settings_save=Save Settings
+settings_saved=Settings saved successfully!
+settings_invalid_email=Invalid email address format.
+settings_invalid_token=Invalid Telegram bot token format.
+settings_invalid_chatid=Invalid Telegram chat ID format.
+
+settings_hooks=ImunifyAV Event Hooks
+settings_hooks_status=Hooks Status
+settings_hooks_active=Enabled
+settings_hooks_inactive=Disabled
+settings_hooks_action=Action
+settings_hooks_install=Enable Notifications
+settings_hooks_remove=Disable Notifications
+settings_hooks_installed=Event notifications enabled successfully! Service restarted.
+settings_hooks_removed=Event notifications disabled. Service restarted.
+settings_hooks_install_failed=Failed to enable notifications. Check permissions.
+settings_hooks_remove_failed=Failed to disable notifications.
+settings_hooks_restart=Service restart required (automatic restart failed).
+settings_hooks_restart_failed=Hooks enabled but automatic service restart failed. Please restart manually: systemctl restart imunify-antivirus
+settings_hooks_confirm_remove=Are you sure you want to disable event notifications?
+settings_hooks_info=Information
+settings_hooks_desc=Event notifications allow ImunifyAV to send Telegram/Email alerts when scans start or malware is detected.
+
+acl_full=Full access to ImunifyAV module
+acl_denied=You do not have permission to access this module.
+
+error_title=ImunifyAV Error
+error_csrf=Invalid request origin. Please try again.
+error_invalid_action=Invalid action parameter.
+
+log_enable_csp=Enabled Content-Security-Policy
+log_save_settings=Saved notification settings
+log_update_htaccess=Updated IP restriction
+
+help_intro=ImunifyAV Webmin Module Help
+help_intro_desc=This module provides integration with ImunifyAV(+) for malware scanning and security management.

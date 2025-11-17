@@ -1,0 +1,35 @@
+<header>ImunifyAV Webmin Module</header>
+
+This module provides seamless integration of the ImunifyAV(+) standalone UI into Webmin,
+allowing you to manage ImunifyAV directly from your Webmin control panel.
+
+<h3>Key Features:</h3>
+
+<ul>
+<li><b>Secure UI Integration</b> - The ImunifyAV interface is loaded via secure iframe with Content-Security-Policy protection.</li>
+<li><b>IP Restriction</b> - Access to the ImunifyAV UI is automatically restricted to your current session IP address only.</li>
+<li><b>Token-Based Authentication</b> - No credentials needed! The module uses ImunifyAV's token-based authentication which refreshes on every page load.</li>
+<li><b>Notification System</b> - Configure Telegram and Email notifications for scan events including malware detection.</li>
+</ul>
+
+<h3>Security Features:</h3>
+
+<ul>
+<li>Content-Security-Policy (CSP) headers prevent XSS attacks</li>
+<li>Dynamic .htaccess updates ensure only the root user's IP can access the UI</li>
+<li>Input validation and sanitization on all user inputs</li>
+<li>Secure token handling with no shell command injection vulnerabilities</li>
+<li>File locking to prevent race conditions</li>
+<li>Action logging for audit trails</li>
+</ul>
+
+<h3>Requirements:</h3>
+
+<ul>
+<li>ImunifyAV(+) installed in standalone mode</li>
+<li>Properly configured integration.conf file</li>
+<li>Apache web server with mod_rewrite enabled</li>
+<li>Valid hostname pointing to UI installation path</li>
+</ul>
+
+<footer>

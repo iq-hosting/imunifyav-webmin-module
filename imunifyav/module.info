@@ -1,0 +1,5 @@
+desc=ImunifyAV Manager
+category=system
+version=1.0.0
+depends=apache
+os_support=*-linux
