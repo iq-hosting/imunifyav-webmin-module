@@ -12,6 +12,7 @@ A Webmin module that provides seamless integration of ImunifyAV(+) standalone UI
 - **IP Restriction** - Automatic `.htaccess` updates to allow only the current root session IP
 - **Token-Based Authentication** - Secure token-based login with automatic refresh on each page load
 - **Notification System** - Telegram and Email alerts for malware detection and scan events
+- **Automatic Event Hooks** - Enable/disable notifications with one click
 - **Multi-language Support** - English and Arabic translations included
 
 ## Requirements
@@ -21,25 +22,30 @@ A Webmin module that provides seamless integration of ImunifyAV(+) standalone UI
 - Apache web server with mod_rewrite
 - Perl 5.8 or later
 - Perl modules: `JSON`, `LWP::UserAgent` (for notifications)
+- **Server hostname with SSL enabled**
 
 ## Installation
 
 ### Step 1: Install ImunifyAV (if not already installed)
 
-**Important:** Configure `integration.conf` BEFORE installing ImunifyAV.
+**Important:** The `integration.conf` file must be created BEFORE installing ImunifyAV.
 
-1. Create the configuration file:
+1. Create the configuration directory:
 
 ```bash
 mkdir -p /etc/sysconfig/imunify360
+```
+
+2. Create the integration configuration file:
+
+```bash
 nano /etc/sysconfig/imunify360/integration.conf
 ```
 
-2. Add the following configuration (adjust paths according to your setup):
+3. Add the following configuration:
 
 ```ini
 [paths]
-# Replace ._hostname with your actual hostname directory
 ui_path = /home/._hostname/public_html/imunifyav
 ui_path_owner = _hostname:_hostname
 
@@ -47,16 +53,28 @@ ui_path_owner = _hostname:_hostname
 service_name = system-auth
 ```
 
-**Note:** The `ui_path` should point to a directory accessible via your web server. Replace `._hostname` and `_hostname` with your actual server hostname or preferred directory structure.
+**Note:** Webmin automatically creates a user named `._hostname` when SSL is enabled for the hostname. In most cases, you can use the configuration exactly as shown above. The subdirectory name **must be `imunifyav`** - this module expects this exact path structure.
 
-3. Install ImunifyAV:
+**Verify the correct path on your system:**
+```bash
+# Check if the hostname directory exists
+ls -la /home/ | grep hostname
+
+# Common paths:
+# /home/._hostname/     (most common)
+# /home/.hostname/      (some systems)
+```
+
+If your system uses a different naming convention, adjust the `ui_path` accordingly, but always keep the subdirectory as `/imunifyav`.
+
+4. Install ImunifyAV:
 
 ```bash
 wget https://repo.imunify360.cloudlinux.com/defence360/imav-deploy.sh -O imav-deploy.sh
 bash imav-deploy.sh
 ```
 
-For more details, see the [official ImunifyAV documentation](https://docs.imunify360.com/imunifyav/stand_alone_mode/).
+For detailed information, refer to the [official ImunifyAV documentation](https://docs.imunify360.com/imunifyav/stand_alone_mode/).
 
 ### Step 2: Install the Webmin Module
 
@@ -105,41 +123,7 @@ The module can automatically enable ImunifyAV event notifications:
 systemctl restart imunify-antivirus
 ```
 
-**To disable notifications later:** Click **Disable Notifications** in the same section.
-
-**Alternative: Manual Installation**
-
-If you prefer to configure hooks manually, add the following to `/etc/sysconfig/imunify360/hooks.yaml`:
-
-```yaml
-rules:
-  USER_SCAN_STARTED:
-    SCRIPT:
-      enabled: true
-      scripts:
-        - /usr/libexec/webmin/imunifyav/imunifyscan.pl
-  USER_SCAN_MALWARE_FOUND:
-    SCRIPT:
-      enabled: true
-      scripts:
-        - /usr/libexec/webmin/imunifyav/imunifyscan.pl
-  CUSTOM_SCAN_STARTED:
-    SCRIPT:
-      enabled: true
-      scripts:
-        - /usr/libexec/webmin/imunifyav/imunifyscan.pl
-  CUSTOM_SCAN_MALWARE_DETECTED:
-    SCRIPT:
-      enabled: true
-      scripts:
-        - /usr/libexec/webmin/imunifyav/imunifyscan.pl
-```
-
-Then restart ImunifyAV:
-
-```bash
-systemctl restart imunify-antivirus
-```
+**To disable notifications:** Click **Disable Notifications** in the same section.
 
 ## Supported Events
 
@@ -169,34 +153,37 @@ tail -f /var/log/imunifyav_scan_events.log
 
 ## Troubleshooting
 
+### Token Retrieval Failed
+
+1. Verify your `ui_path` in `/etc/sysconfig/imunify360/integration.conf` matches the expected format:
+   ```
+   ui_path = /home/._hostname/public_html/imunifyav
+   ```
+
+2. The directory name **must be `imunifyav`** - the module cannot work with other names.
+
+3. Verify ImunifyAV agent is working:
+   ```bash
+   imunify360-agent login get --username root
+   ```
+
 ### Notifications Not Working
 
 1. Check if the configuration file is readable:
-
-```bash
-ls -la /usr/libexec/webmin/imunifyav/notifications.conf
-# Should show: -rw-r--r-- (644)
-```
+   ```bash
+   ls -la /usr/libexec/webmin/imunifyav/notifications.conf
+   # Should show: -rw-r--r-- (644)
+   ```
 
 2. Test the script manually:
-
-```bash
-echo '{"event_id":"USER_SCAN_STARTED","path":"/home/test"}' | /usr/libexec/webmin/imunifyav/imunifyscan.pl
-```
+   ```bash
+   echo '{"event_id":"USER_SCAN_STARTED","path":"/home/test"}' | /usr/libexec/webmin/imunifyav/imunifyscan.pl
+   ```
 
 3. Check the log:
-
-```bash
-cat /var/log/imunifyav_scan_events.log
-```
-
-### Token Retrieval Failed
-
-Verify ImunifyAV agent is working:
-
-```bash
-imunify360-agent login get --username root
-```
+   ```bash
+   cat /var/log/imunifyav_scan_events.log
+   ```
 
 ### Iframe Not Loading
 
@@ -229,7 +216,7 @@ This module is a **community-developed integration** by **IQ Hosting** and is **
 
 ## Author
 
-**IQ Hosting** - [https://iq-hosting.com](https://iq-hosting.com)
+**IQ Hosting** - [https://www.iq-hosting.com](https://www.iq-hosting.com)
 
 ---
 
